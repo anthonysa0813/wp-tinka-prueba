@@ -12,7 +12,6 @@ const verifyToken = (req, res) => {
   } catch (error) {
     return res.status(400).send();
   }
-  res.send("Hola verifyToken");
 };
 
 const receivedMessage = (req, res) => {
