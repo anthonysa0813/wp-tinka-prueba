@@ -2,6 +2,8 @@ require("dotenv").config();
 const fs = require("fs");
 const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 const https = require("https");
+const https = require("https");
+
 function SendMessageWhatsApp(textResponse, number) {
   const data = JSON.stringify({
     messaging_product: "whatsapp",
