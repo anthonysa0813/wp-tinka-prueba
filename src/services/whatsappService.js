@@ -1,12 +1,15 @@
 require("dotenv").config();
 const axios = require("axios");
+const { runSample } = require("../..");
 
-function SendMessageWhatsApp(textResponse, number) {
+async function SendMessageWhatsApp(textResponse, number) {
+  const responseFlow = await runSample(textResponse);
+  const { user, bot } = responseFlow;
   const data = {
     messaging_product: "whatsapp",
     to: number,
     text: {
-      body: textResponse,
+      body: bot,
     },
     type: "text",
   };

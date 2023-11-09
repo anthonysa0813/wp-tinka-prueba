@@ -14,7 +14,7 @@ const credentialsPath =
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = credentialsPath;
 
-async function runSample() {
+async function runSample(question) {
   // A unique identifier for the given session
   const sessionId = uuid.v4();
 
@@ -28,9 +28,9 @@ async function runSample() {
     queryInput: {
       text: {
         // The query to send to the dialogflow agent
-        text: "cuanto cuesta?",
+        text: question,
         // The language used by the client (en-US)
-        languageCode: "en-US",
+        languageCode: "es-PE",
       },
     },
   };
@@ -50,26 +50,30 @@ async function runSample() {
   }
 }
 
-const app = express();
+// const app = express();
 
-app.get("/", async (req, res) => {
-  try {
-    const result = await runSample();
-    return res.status(200).json({ message: "Success", result });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Server error", error });
-  }
-});
+// app.get("/", async (req, res) => {
+//   try {
+//     const result = await runSample("gadha");
+//     return res.status(200).json({ message: "Success", result });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({ message: "Server error", error });
+//   }
+// });
 
-const start = async () => {
-  try {
-    app.listen(PORT, () => {
-      console.log(`Server has been started on port ${PORT}`);
-    });
-  } catch (error) {
-    console.log(error);
-  }
+module.exports = {
+  runSample,
 };
 
-start();
+// const start = async () => {
+//   try {
+//     app.listen(PORT, () => {
+//       console.log(`Server has been started on port ${PORT}`);
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// start();
