@@ -1,7 +1,6 @@
 require("dotenv").config();
-const fs = require("fs");
-const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
-const https = require("https");
+// const fs = require("fs");
+// const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 const https = require("https");
 
 function SendMessageWhatsApp(textResponse, number) {
@@ -16,7 +15,7 @@ function SendMessageWhatsApp(textResponse, number) {
 
   const options = {
     host: "graph.facebook.com",
-    path: "/v17.0/118552371232224/messages",
+    path: "/v13.0/118552371232224/messages",
     method: "POST",
     body: data,
     headers: {
@@ -27,6 +26,9 @@ function SendMessageWhatsApp(textResponse, number) {
 
   const req = https.request(options, (res) => {
     res.on("data", (d) => {
+      console.log({
+        d,
+      });
       process.stdout.write(d);
     });
   });
