@@ -30,7 +30,7 @@ const receivedMessage = (req, res) => {
       const messages = messageObject[0];
       const text = GetTextUser(messages);
       const number = messages["from"];
-      console.log(text);
+      console.log({ text, number });
       myConsole.log(text);
       SendMessageWhatsApp(text, number);
     }
