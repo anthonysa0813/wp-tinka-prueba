@@ -28,8 +28,8 @@ const receivedMessage = (req, res) => {
     if (typeof messageObject != "undefined") {
       //  myConsole.log(messageObject);
       const messages = messageObject[0];
-      const text = GetTextUser(messages);
       const number = messages["from"];
+      const text = GetTextUser(messages);
       console.log({ text, number });
       myConsole.log(text);
       SendMessageWhatsApp(text, number);
