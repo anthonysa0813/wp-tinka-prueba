@@ -1,3 +1,6 @@
+const fs = require("fs");
+const myConsole = new console.Console(fs.createWriteStream("./log.txt"));
+
 const verifyToken = (req, res) => {
   try {
     const accessToken = "GHADFGAHD552FGADAR5A12AS";
@@ -15,8 +18,47 @@ const verifyToken = (req, res) => {
 };
 
 const receivedMessage = (req, res) => {
-  res.send("Hola receivedMessage");
+  try {
+    const entry = req.body["entry"][0];
+    const changes = entry["changes"][0];
+    const value = changes["value"];
+    const messageObject = value["messages"];
+
+    if (typeof messageObject != "undefined") {
+      //  myConsole.log(messageObject);
+      const messages = messageObject[0];
+      const text = GetTextUser(messages);
+      console.log(text);
+      myConsole.log(text);
+    }
+
+    return res.send("EVENT_RECEIVED");
+  } catch (error) {
+    return res.send("EVENT_RECEIVED");
+  }
 };
+
+function GetTextUser(messages) {
+  var text = "";
+  var typeMessge = messages["type"];
+  if (typeMessge == "text") {
+    text = messages["text"]["body"];
+  } else if (typeMessge == "interactive") {
+    var interactiveObject = messages["interactive"];
+    var typeInteractive = interactiveObject["type"];
+
+    if (typeInteractive == "button_reply") {
+      text = interactiveObject["button_reply"]["title"];
+    } else if (typeInteractive == "list_reply") {
+      text = interactiveObject["list_reply"]["title"];
+    } else {
+      myConsole.log("sin mensaje");
+    }
+  } else {
+    myConsole.log("sin mensaje");
+  }
+  return text;
+}
 
 module.exports = {
   verifyToken,
